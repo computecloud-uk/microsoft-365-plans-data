@@ -1,0 +1,76 @@
+# Sends each published GitHub release to Zenodo as a Dataset draft.
+# Zenodo gets no access to GitHub: the upload uses a Zenodo token stored as a
+# secret in this repository only (Settings > Secrets and variables > Actions).
+#   ZENODO_TOKEN          zenodo.org token, scopes deposit:write + deposit:actions
+#   ZENODO_SANDBOX_TOKEN  sandbox.zenodo.org token, for test runs (optional)
+# Optional repository variables:
+#   ZENODO_RECORD_ID      id of the published record (otherwise found by title)
+#   ZENODO_AUTO_PUBLISH   "true" to publish without review (default: draft only)
+name: Archive release on Zenodo
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Where to send it"
+        type: choice
+        options: [sandbox, zenodo]
+        default: sandbox
+      version:
+        description: "Version label, e.g. 2026-10-28-test"
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zenodo
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check the release matches the data
+        if: github.event_name == 'release'
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          DATA_VERSION=$(python -c "import json;print(json.load(open('data/m365-features.json'))['meta']['version'])")
+          if [ "${TAG#v}" != "$DATA_VERSION" ]; then
+            echo "Release tag $TAG doesn't match the data version $DATA_VERSION. Tag the release v$DATA_VERSION." >&2
+            exit 1
+          fi
+          (cd data && sha256sum -c SHA256SUMS)
+      - name: Check nothing mentions M365 Maps
+        run: |
+          if grep -rliE 'm365 ?maps|dinnage' README.md CITATION.cff .zenodo.json data/; then
+            echo "The files above mention M365 Maps. Only ComputeCloud's own data may be archived." >&2
+            exit 1
+          fi
+      - name: Upload to Zenodo
+        env:
+          TARGET: ${{ github.event_name == 'release' && 'zenodo' || inputs.target }}
+          VERSION: ${{ github.event_name == 'release' && github.event.release.tag_name || inputs.version }}
+          NOTES: ${{ github.event.release.body }}
+          PROD_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          SANDBOX_TOKEN: ${{ secrets.ZENODO_SANDBOX_TOKEN }}
+          ZENODO_RECORD_ID: ${{ vars.ZENODO_RECORD_ID }}
+          ZENODO_PUBLISH: ${{ vars.ZENODO_AUTO_PUBLISH }}
+        run: |
+          if [ "$TARGET" = "sandbox" ]; then
+            export ZENODO_URL=https://sandbox.zenodo.org ZENODO_TOKEN="$SANDBOX_TOKEN" ZENODO_RECORD_ID=
+          else
+            export ZENODO_URL=https://zenodo.org ZENODO_TOKEN="$PROD_TOKEN"
+          fi
+          printf '%s' "$NOTES" > "$RUNNER_TEMP/notes.md"
+          python scripts/zenodo_release.py --version "$VERSION" \
+            --notes-file "$RUNNER_TEMP/notes.md" \
+            README.md LICENSE CITATION.cff \
+            data/m365-features.csv data/m365-cells.csv data/m365-features.json data/SHA256SUMS

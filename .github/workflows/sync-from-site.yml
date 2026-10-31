@@ -1,0 +1,37 @@
+# Copies the published dataset from computecloud.co.uk into data/ and commits it.
+# Run it by hand (Actions > Sync data from the website > Run workflow) after a new
+# version goes live on the website. It never reads anything except the three public files.
+name: Sync data from the website
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download and check the live files
+        id: sync
+        run: python scripts/sync_from_site.py
+      - name: Commit the new version
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          VERSION: ${{ steps.sync.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data CITATION.cff
+          git commit -m "Data: version $VERSION from computecloud.co.uk"
+          git push
+          echo "Data version $VERSION committed. Next: create a release tagged v$VERSION to archive it on Zenodo." >> "$GITHUB_STEP_SUMMARY"
