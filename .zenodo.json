@@ -1,0 +1,40 @@
+{
+  "upload_type": "dataset",
+  "title": "Microsoft 365 plans and features",
+  "creators": [
+    {
+      "name": "ComputeCloud"
+    }
+  ],
+  "description": "<p>Which Microsoft 365 plans include which features: <strong>484 features across 25 plans and add-on suites</strong>, from Business Basic to E7, Frontline and Education, with one value for every feature and plan (12,100 values). Every value is checked against Microsoft's own documentation and linked to the Microsoft pages behind it. This is the dataset behind ComputeCloud's Microsoft 365 plan comparison tool.</p>\n<p><strong>Values:</strong> included; not included; add-on (the add-on is named); limit (a stated limit or billing model); partial (with a condition); unclear (Microsoft's own documents conflict or don't say clearly); unverified (no Microsoft source either way after a full search). The Defender and Purview suite columns list only what the suite adds.</p>\n<p><strong>Method:</strong> Microsoft's documentation only, in order of authority: the Product Terms, Microsoft Learn licensing pages, Microsoft's service plan list, service descriptions, the plan comparison guides, then Microsoft's product and support pages. Resellers, blogs and AI summaries are never a source. About half the values (6,392) were researched again from scratch in a separate check, including every add-on, partial and unclear value. The JSON keeps the evidence behind the values: the Microsoft page, the section and the date it was checked (568 sources).</p>\n<p><strong>Files:</strong> <code>m365-features.csv</code> (one row per feature, one column per plan), <code>m365-cells.csv</code> (one row per feature and plan, with the note and Microsoft source links), <code>m365-features.json</code> (plans with Microsoft's SKU and service plan IDs, features, values, evidence records and sources; <code>meta.fields</code> documents every column), <code>SHA256SUMS</code>. Identical to the files published at https://computecloud.co.uk/data/microsoft-365-plans/.</p>\n<p>A summary of Microsoft's public documentation on the dates shown, not licensing advice. Microsoft's Product Terms and your own agreement decide what you are licensed for. Microsoft's product names belong to Microsoft; this dataset is not produced or endorsed by Microsoft. Corrections: hello@computecloud.co.uk.</p>",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "language": "eng",
+  "keywords": [
+    "Microsoft 365",
+    "Office 365",
+    "licensing",
+    "software licensing",
+    "feature comparison",
+    "Microsoft 365 Business Premium",
+    "Microsoft 365 E3",
+    "Microsoft 365 E5",
+    "Microsoft Defender",
+    "Microsoft Purview",
+    "open data"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://computecloud.co.uk/data/microsoft-365-plans/",
+      "relation": "isDocumentedBy"
+    },
+    {
+      "identifier": "https://computecloud.co.uk/tools/microsoft-365-plans/",
+      "relation": "isSourceOf"
+    },
+    {
+      "identifier": "https://github.com/computecloud-uk/microsoft-365-plans-data",
+      "relation": "isSupplementTo"
+    }
+  ]
+}

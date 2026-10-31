@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+type: dataset
+title: "Microsoft 365 plans and features"
+authors:
+  - name: ComputeCloud
+    website: "https://computecloud.co.uk/"
+version: "2026-10-28"
+date-released: "2026-10-28"
+abstract: >-
+  Which Microsoft 365 plans include which features: 484 features across 25
+  Business, Office 365, Frontline, Enterprise and Education plans and add-on
+  suites, with one value for every feature and plan, checked against
+  Microsoft's own documentation and linked to the Microsoft pages behind
+  the values.
+license: CC-BY-4.0
+url: "https://computecloud.co.uk/data/microsoft-365-plans/"
+repository: "https://github.com/computecloud-uk/microsoft-365-plans-data"
+keywords:
+  - Microsoft 365
+  - Office 365
+  - licensing
+  - feature comparison
+  - open data
