@@ -1,10 +1,13 @@
 # Microsoft 365 plans and features: open dataset
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23838909.svg)](https://doi.org/10.5281/zenodo.23838909)
+
 Which Microsoft 365 plans include which features, as a spreadsheet and as JSON, with links to the Microsoft pages behind the values. Free to download, reuse and republish under [CC BY 4.0](LICENSE), with a credit and a link back.
 
 - **Coverage:** 484 features across 25 Microsoft 365 plans and add-on suites, from Business Basic to E7, Frontline and Education. That's one value for every feature and plan, 12,100 in all.
 - **Sources:** checked against Microsoft's own documentation: the Product Terms, Microsoft Learn, Microsoft's service plan list, its plan comparison guides and product pages. About half the values (6,392) were researched again from scratch in a separate check.
 - **Home page:** https://computecloud.co.uk/data/microsoft-365-plans/. This repository is a copy of the files published there, kept for versioning and archiving on Zenodo.
+- **Archived on Zenodo:** https://doi.org/10.5281/zenodo.23838909 (all versions; always resolves to the latest).
 
 ## Files
 
@@ -58,7 +61,16 @@ For a web page:
 Source: <a href="https://computecloud.co.uk/data/microsoft-365-plans/">Microsoft 365 plans and features</a>, ComputeCloud, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
 ```
 
-Each version is also archived on Zenodo with its own DOI. GitHub's "Cite this repository" button uses [`CITATION.cff`](CITATION.cff).
+To cite the archived copy on Zenodo:
+
+> ComputeCloud. (2026). *Microsoft 365 plans and features* (Version 2026-10-28) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23838910
+
+| DOI | Points to |
+|---|---|
+| [10.5281/zenodo.23838909](https://doi.org/10.5281/zenodo.23838909) | All versions (always the latest). Use this unless you need a specific version. |
+| [10.5281/zenodo.23838910](https://doi.org/10.5281/zenodo.23838910) | Version 2026-10-28 |
+
+GitHub's "Cite this repository" button uses [`CITATION.cff`](CITATION.cff).
 
 ## Licence
 

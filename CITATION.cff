@@ -7,6 +7,14 @@ authors:
     website: "https://computecloud.co.uk/"
 version: "2026-10-28"
 date-released: "2026-10-28"
+doi: 10.5281/zenodo.23838909
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23838909
+    description: "Zenodo, all versions (resolves to the latest)"
+  - type: doi
+    value: 10.5281/zenodo.23838910
+    description: "Zenodo, version 2026-10-28"
 abstract: >-
   Which Microsoft 365 plans include which features: 484 features across 25
   Business, Office 365, Frontline, Enterprise and Education plans and add-on
